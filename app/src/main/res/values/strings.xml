@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Pictures</string>
+    <string name="action_settings">设置</string>
+    <string name="title_activity_new_main">主页</string>
+    <string name="tab_text_gank">Tab 1</string>
+    <string name="tab_text_coser">Tab 2</string>
+    <string name="tab_text_3">Tab 3</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+</resources>
