@@ -1,33 +1,28 @@
 package com.ymlion.leisure.module.main
 
 import android.os.Bundle
-import android.support.design.widget.TabLayout
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.view.ViewPager
-import android.view.*
-import android.widget.TextView
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewConfiguration
+import android.widget.Toast
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigation
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigationViewPager
 import com.ymlion.leisure.R
 import com.ymlion.leisure.base.BaseActivity
+import com.ymlion.leisure.module.pic.PicturesFragment
 import kotlinx.android.synthetic.main.activity_new_main.*
 
-class NewMainActivity : BaseActivity(), MainContract.View, View.OnClickListener {
-
-    /**
-     * The [android.support.v4.view.PagerAdapter] that will provide
-     * fragments for each of the sections. We use a
-     * [FragmentPagerAdapter] derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * [android.support.v4.app.FragmentStatePagerAdapter].
-     */
-    private var mSectionsPagerAdapter: SectionsPagerAdapter? = null
-
+class NewMainActivity : BaseActivity(), MainContract.View, View.OnClickListener,
+        AHBottomNavigation.OnTabSelectedListener, PicturesFragment.OnFragmentInteractionListener {
     /**
      * The [ViewPager] that will host the section contents.
      */
-    private var mViewPager: ViewPager? = null
+    private var mViewPager: AHBottomNavigationViewPager? = null
+    private var mBottomNav: AHBottomNavigation? = null
+    private var mAdapter: MainPagerAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,22 +34,56 @@ class NewMainActivity : BaseActivity(), MainContract.View, View.OnClickListener 
     }
 
     override fun initView() {
-        mViewPager = vp_main
+        mViewPager = view_pager
+        mBottomNav = bottom_navigation
     }
 
     override fun initData() {
-        mSectionsPagerAdapter = SectionsPagerAdapter(supportFragmentManager)
-        mViewPager!!.adapter = mSectionsPagerAdapter
-        val tabLayout = tab_main
-        mViewPager!!.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
-        tabLayout.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(mViewPager))
+        val navAdapter = AHBottomNavigationAdapter(this, R.menu.tabs_main)
+        navAdapter.setupWithBottomNavigation(mBottomNav)
+        mBottomNav!!.isTranslucentNavigationEnabled = true
+        mBottomNav!!.setOnTabSelectedListener(this)
+
+        mAdapter = MainPagerAdapter(supportFragmentManager)
+        mViewPager!!.adapter = mAdapter
+        mViewPager!!.setCurrentItem(0, false)
     }
 
-    override fun onClick(v: View?) {
-        when(v!!.id) {
+    override fun onClick(v: View) {
+        when(v.id) {
         }
     }
 
+    var mLastTapTime: Long = 0L
+
+    override fun onTabSelected(position: Int, wasSelected: Boolean): Boolean {
+        if (wasSelected) {
+            val duration = (System.currentTimeMillis() - mLastTapTime).toInt()
+            if (duration < ViewConfiguration.get(this).scaledDoubleTapSlop) {
+                Toast.makeText(this, "selected $position $wasSelected + double click",
+                        Toast.LENGTH_SHORT).show()
+                // todo check whether refresh finished, if not then avoid refresh twice
+                refreshUI()
+                mLastTapTime = 0L
+            } else {
+                mLastTapTime += duration
+            }
+        } else {
+            var lastTab: TabFragment  = mAdapter!!.getItem(mViewPager!!.currentItem) as TabFragment
+            lastTab.hideAnim()
+            mLastTapTime = 0L // first selected tab don't handle double click
+            Toast.makeText(this, "selected $position $wasSelected", Toast.LENGTH_SHORT).show()
+            mViewPager!!.setCurrentItem(position, false)
+            lastTab = mAdapter!!.getItem(mViewPager!!.currentItem) as TabFragment
+            lastTab.displayAnim()
+        }
+
+        return true
+    }
+
+    private fun refreshUI() {
+
+    }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -76,55 +105,7 @@ class NewMainActivity : BaseActivity(), MainContract.View, View.OnClickListener 
         return super.onOptionsItemSelected(item)
     }
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    class PlaceholderFragment : Fragment() {
+    override fun onFragmentInteraction() {
 
-        override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
-                                  savedInstanceState: Bundle?): View? {
-            val rootView = inflater!!.inflate(R.layout.fragment_new_main, container, false)
-            val textView = rootView.findViewById(R.id.section_label) as TextView
-            textView.text = getString(R.string.section_format, arguments.getInt(ARG_SECTION_NUMBER))
-            return rootView
-        }
-
-        companion object {
-            /**
-             * The fragment argument representing the section number for this
-             * fragment.
-             */
-            private val ARG_SECTION_NUMBER = "section_number"
-
-            /**
-             * Returns a new instance of this fragment for the given section
-             * number.
-             */
-            fun newInstance(sectionNumber: Int): PlaceholderFragment {
-                val fragment = PlaceholderFragment()
-                val args = Bundle()
-                args.putInt(ARG_SECTION_NUMBER, sectionNumber)
-                fragment.arguments = args
-                return fragment
-            }
-        }
-    }
-
-    /**
-     * A [FragmentPagerAdapter] that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
-     */
-    inner class SectionsPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
-
-        override fun getItem(position: Int): Fragment {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1)
-        }
-
-        override fun getCount(): Int {
-            // Show 3 total pages.
-            return 2
-        }
     }
 }
