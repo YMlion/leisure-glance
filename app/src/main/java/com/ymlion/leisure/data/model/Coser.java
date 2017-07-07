@@ -1,4 +1,4 @@
-package com.ymlion.leisure.module.pic.model;
+package com.ymlion.leisure.data.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;

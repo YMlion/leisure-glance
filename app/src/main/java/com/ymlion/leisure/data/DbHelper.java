@@ -1,9 +1,9 @@
 package com.ymlion.leisure.data;
 
 import com.ymlion.leisure.AppContext;
-import com.ymlion.leisure.module.pic.model.Coser;
-import com.ymlion.leisure.ui.model.DaoSession;
-import com.ymlion.leisure.ui.model.Meizi;
+import com.ymlion.leisure.data.model.Coser;
+import com.ymlion.leisure.data.model.DaoSession;
+import com.ymlion.leisure.data.model.Meizi;
 
 import org.greenrobot.greendao.rx.RxDao;
 

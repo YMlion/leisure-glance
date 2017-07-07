@@ -21,7 +21,7 @@ import com.ymlion.leisure.R;
 import com.ymlion.leisure.base.BaseActivity;
 import com.ymlion.leisure.net.Http;
 import com.ymlion.leisure.ui.adapter.FuliAdapter;
-import com.ymlion.leisure.ui.model.Meizi;
+import com.ymlion.leisure.data.model.Meizi;
 import com.ymlion.leisure.util.SubscriberAdapter;
 import com.ymlion.leisure.view.DividerItemDecoration;
 import com.ymlion.lib.base.RvBaseAdapter;

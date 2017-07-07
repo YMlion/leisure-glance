@@ -1,7 +1,7 @@
 package com.ymlion.leisure;
 
-import com.ymlion.leisure.ui.model.DaoMaster;
-import com.ymlion.leisure.ui.model.DaoSession;
+import com.ymlion.leisure.data.model.DaoMaster;
+import com.ymlion.leisure.data.model.DaoSession;
 import com.ymlion.lib.BaseApplication;
 
 import org.greenrobot.greendao.database.Database;

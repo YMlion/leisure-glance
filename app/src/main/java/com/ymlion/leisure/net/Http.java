@@ -1,10 +1,10 @@
 package com.ymlion.leisure.net;
 
 import com.ymlion.leisure.data.DbHelper;
-import com.ymlion.leisure.module.pic.model.Coser;
+import com.ymlion.leisure.data.model.Coser;
 import com.ymlion.leisure.net.response.HttpException;
 import com.ymlion.leisure.net.response.HttpResult;
-import com.ymlion.leisure.ui.model.Meizi;
+import com.ymlion.leisure.data.model.Meizi;
 import com.ymlion.lib.utils.RxUtil;
 
 import java.net.ConnectException;

@@ -1,13 +1,9 @@
 package com.ymlion.leisure.module.pic
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import com.ymlion.leisure.R
+import com.ymlion.leisure.data.model.Meizi
 import com.ymlion.leisure.module.pic.adapter.MeiziAdapter
 import com.ymlion.leisure.net.Http
-import com.ymlion.leisure.ui.model.Meizi
 import com.ymlion.leisure.util.SubscriberAdapter
 
 /**
@@ -19,11 +15,6 @@ class MeiziFragment : BasePicFragment<Meizi>() {
         fun newInstance(): MeiziFragment {
             return MeiziFragment()
         }
-    }
-
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        return inflater!!.inflate(R.layout.fragment_list_common, container, false)
     }
 
     override fun initAdapter() {

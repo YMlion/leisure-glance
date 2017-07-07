@@ -26,7 +26,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.ymlion.leisure.R;
 import com.ymlion.leisure.base.BaseActivity;
-import com.ymlion.leisure.ui.model.Meizi;
+import com.ymlion.leisure.data.model.Meizi;
 
 import uk.co.senab.photoview.PhotoView;
 

@@ -1,6 +1,6 @@
 package com.ymlion.leisure.module.pic.adapter
 
-import com.ymlion.leisure.module.pic.model.Coser
+import com.ymlion.leisure.data.model.Coser
 
 /**
  * Created by YMlion on 2017/7/7.

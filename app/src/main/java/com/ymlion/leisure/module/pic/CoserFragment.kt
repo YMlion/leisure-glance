@@ -1,8 +1,8 @@
 package com.ymlion.leisure.module.pic
 
 import com.ymlion.leisure.R
+import com.ymlion.leisure.data.model.Coser
 import com.ymlion.leisure.module.pic.adapter.CoserAdapter
-import com.ymlion.leisure.module.pic.model.Coser
 import com.ymlion.leisure.net.Http
 import com.ymlion.leisure.util.SubscriberAdapter
 
