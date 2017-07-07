@@ -15,6 +15,7 @@ import org.greenrobot.greendao.annotation.NotNull;
 @Entity
 public class Meizi implements Parcelable {
 
+
     /**
      * _id : 576caea6421aa90c875dc46b
      * createdAt : 2016-06-24T11:53:10.564Z

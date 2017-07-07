@@ -1,6 +1,5 @@
 package com.ymlion.leisure.ui.adapter;
 
-import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -28,8 +27,8 @@ import java.util.List;
  */
 public class FuliAdapter extends RvBaseAdapter<Meizi> {
 
-    public FuliAdapter(Context context, List<Meizi> list, int layoutRes) {
-        super(context, list, layoutRes);
+    public FuliAdapter(List<Meizi> list, int layoutRes) {
+        super(list, layoutRes);
         setHasStableIds(true);
     }
 
@@ -43,7 +42,7 @@ public class FuliAdapter extends RvBaseAdapter<Meizi> {
         final ImageView img = holder.getView(R.id.fuli_iv);
         img.setTransitionName(model.get_id());
         holder.setText(R.id.fuli_des_tv, model.getDesc());
-        Glide.with(mContext)
+        Glide.with(holder.getConvertView().getContext())
                 .load(model.getUrl())
                 .apply(new RequestOptions().dontAnimate())
                 .listener(new RequestListener<Drawable>() {

@@ -1,6 +1,7 @@
 package com.ymlion.leisure.data;
 
 import com.ymlion.leisure.AppContext;
+import com.ymlion.leisure.module.pic.model.Coser;
 import com.ymlion.leisure.ui.model.DaoSession;
 import com.ymlion.leisure.ui.model.Meizi;
 
@@ -21,10 +22,12 @@ public class DbHelper {
 
     private static DbHelper DB;
     private RxDao<Meizi, String> meiziDao;
+    private RxDao<Coser, Integer> coserDao;
 
     private DbHelper() {
         DaoSession daoSession = AppContext.getInstance().getDaoSession();
         meiziDao = daoSession.getMeiziDao().rx();
+        coserDao = daoSession.getCoserDao().rx();
     }
 
     public static DbHelper get() {
@@ -54,5 +57,26 @@ public class DbHelper {
      */
     public void saveMeizis(List<Meizi> list) {
         meiziDao.getDao().insertOrReplaceInTx(list);
+    }
+
+    /**
+     * 获取所有的coser数据
+     *
+     * @return list
+     */
+    public Observable<List<Coser>> getCosers() {
+        return coserDao.loadAll()
+                .flatMap(Observable::from)
+                .toSortedList((coser, coser2) -> coser.getId() - coser2.getId())
+                .filter(list -> list != null && list.size() > 0);
+    }
+
+    /**
+     * 保存coser列表
+     *
+     * @param list 列表
+     */
+    public void saveCosers(List<Coser> list) {
+        coserDao.getDao().insertOrReplaceInTx(list);
     }
 }

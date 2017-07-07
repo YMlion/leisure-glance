@@ -1,6 +1,5 @@
 package com.ymlion.lib.base;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,15 +16,13 @@ import java.util.List;
 
 public abstract class RvBaseAdapter<T> extends RecyclerView.Adapter {
 
-    protected Context mContext;
     protected List<T> mDatas;
     protected int mLayoutRes;
     private OnItemClickListener mListener;
     private List<View> mHeaders;
     private List<View> mFooters;
 
-    public RvBaseAdapter(Context context, List<T> list, int layoutRes) {
-        mContext = context;
+    public RvBaseAdapter(List<T> list, int layoutRes) {
         mDatas = list;
         mLayoutRes = layoutRes;
     }
@@ -54,13 +51,13 @@ public abstract class RvBaseAdapter<T> extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == 0) {
-            return ViewHolder.get(mContext, parent, mLayoutRes, viewType);
+            return ViewHolder.get(parent, mLayoutRes, viewType);
         }
         int headNum = getHeadNum();
         if (viewType <= headNum) {
-            return ViewHolder.get(mContext, mHeaders.get(--viewType));
+            return ViewHolder.get(mHeaders.get(--viewType));
         } else {
-            return ViewHolder.get(mContext, mFooters.get(--viewType - headNum));
+            return ViewHolder.get(mFooters.get(--viewType - headNum));
         }
     }
 

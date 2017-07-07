@@ -1,20 +1,41 @@
 package com.ymlion.leisure.module.pic
 
-import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import com.ymlion.leisure.R
+import com.ymlion.leisure.module.pic.adapter.CoserAdapter
+import com.ymlion.leisure.module.pic.model.Coser
+import com.ymlion.leisure.net.Http
+import com.ymlion.leisure.util.SubscriberAdapter
 
 /**
- * A simple [Fragment] subclass.
+ * cosplay pictures.
  */
-class CoserFragment : Fragment() {
+class CoserFragment : BasePicFragment<Coser>() {
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        return inflater!!.inflate(R.layout.fragment_coser, container, false)
+    override fun initAdapter() {
+        datas = mutableListOf<Coser>()
+        mAdapter = CoserAdapter(datas, R.layout.item_card_pic)
+    }
+
+    override fun getDatas(loadCache: Boolean) {
+        var lastId: Int = 0
+        if (pageIndex > 1) {
+            lastId = datas?.get(datas!!.lastIndex)!!.id
+        }
+        Http.build()
+                .getCosers(PAGE_SIZE, lastId, loadCache)
+                .subscribe(object : SubscriberAdapter<MutableList<Coser>>() {
+                    override fun onNext(t: MutableList<Coser>?) {
+                        super.onNext(t)
+                        if (t != null) {
+                            onLoadSuccess(t)
+                        }
+                    }
+
+                    override fun onError(e: Throwable?) {
+                        super.onError(e)
+                        onRefreshComplete()
+                    }
+                })
     }
 
     companion object {

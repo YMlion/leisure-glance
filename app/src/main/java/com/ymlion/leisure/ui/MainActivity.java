@@ -107,7 +107,7 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
     protected void initData() {
         meizis = new ArrayList<>();
         getMeizis(true);
-        adapter = new FuliAdapter(this, meizis, R.layout.item_fuli);
+        adapter = new FuliAdapter(meizis, R.layout.item_fuli);
         adapter.setOnItemClickListener((view, position) -> GalleryActivity.start(MainActivity.this,
                 (ArrayList<Meizi>) meizis, position, view.findViewById(R.id.fuli_iv)));
         fuliRv.setAdapter(adapter);

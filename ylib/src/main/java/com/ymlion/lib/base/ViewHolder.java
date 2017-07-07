@@ -1,6 +1,5 @@
 package com.ymlion.lib.base;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
@@ -31,25 +30,23 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     /**
      * 获取ViewHolder实例
      *
-     * @param context
      * @param parent
      * @param layoutId
      * @param viewType
      * @return
      */
-    public static ViewHolder get(Context context, ViewGroup parent, int layoutId, int viewType) {
-        View itemView = LayoutInflater.from(context).inflate(layoutId, parent, false);
+    public static ViewHolder get(ViewGroup parent, int layoutId, int viewType) {
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(layoutId, parent, false);
         return new ViewHolder(itemView);
     }
 
     /**
      * 获取ViewHolder实例
      *
-     * @param context
      * @param itemView
      * @return
      */
-    public static ViewHolder get(Context context, View itemView) {
+    public static ViewHolder get(View itemView) {
         return new ViewHolder(itemView);
     }
 

@@ -1,6 +1,7 @@
 package com.ymlion.leisure.net;
 
 import com.ymlion.leisure.data.DbHelper;
+import com.ymlion.leisure.module.pic.model.Coser;
 import com.ymlion.leisure.net.response.HttpException;
 import com.ymlion.leisure.net.response.HttpResult;
 import com.ymlion.leisure.ui.model.Meizi;
@@ -28,13 +29,9 @@ import rx.Observable;
 
 public class Http {
     private static final String TAG = "Http";
-    private static final String BASE_URL = "http://gank.io/api/";
+    private static final String BASE_URL = "http://ymlion.com/";
 
     private static Http HTTP;
-
-    public IRequest getRequest() {
-        return request;
-    }
 
     private IRequest request;
 
@@ -80,12 +77,27 @@ public class Http {
      * @param <T>
      * @return
      */
-    private <T> Observable.Transformer<HttpResult<T>, T> handleResult() {
+    private <T> Observable.Transformer<HttpResult<T>, T> handleGankResult() {
         return tObservable -> tObservable.flatMap(httpResult -> {
                 if (httpResult.error) {
                     return Observable.error(new HttpException(HttpException.DATA_EXCEPTION, "获取数据出错"));
                 }
                 return Observable.just(httpResult.results);
+            });
+    }
+
+    /**
+     * 解析返回结果
+     *
+     * @param <T>
+     * @return
+     */
+    private <T> Observable.Transformer<HttpResult<T>, T> handleYXResult() {
+        return tObservable -> tObservable.flatMap(httpResult -> {
+                if (!httpResult.RetSucceed) {
+                    return Observable.error(new HttpException(HttpException.DATA_EXCEPTION, "获取数据出错"));
+                }
+                return Observable.just(httpResult.msg);
             });
     }
 
@@ -116,7 +128,7 @@ public class Http {
     }
 
     /**
-     * get images from net
+     * get images from gank.io
      *
      * @param size
      * @param page
@@ -128,9 +140,32 @@ public class Http {
                 .compose(handleError());
 
         Observable<List<Meizi>> net = request.getMeizhis(size, page)
-                .compose(this.handleResult())
+                .compose(this.handleGankResult())
                 .doOnNext(meizis -> DbHelper.get().saveMeizis(meizis))
                 .compose(this.handleError());
+
+        if (loadCache) {
+            return Observable.concat(cache, net);
+        }
+        return net;
+    }
+
+    /**
+     * get cos from yx
+     *
+     * @param count
+     * @param lastId
+     * @return
+     */
+    public Observable<List<Coser>> getCosers(int count, int lastId, boolean loadCache) {
+        Observable<List<Coser>> cache = DbHelper.get()
+                .getCosers()
+                .compose(handleError());
+
+        Observable<List<Coser>> net = request.getCosers(count, lastId)
+                .compose(handleYXResult())
+                .doOnNext(cosers -> DbHelper.get().saveCosers(cosers))
+                .compose(handleError());
 
         if (loadCache) {
             return Observable.concat(cache, net);

@@ -7,4 +7,6 @@ package com.ymlion.leisure.net.response;
 public class HttpResult<T> {
     public boolean error;
     public T results;
+    public boolean RetSucceed;
+    public T msg;
 }
