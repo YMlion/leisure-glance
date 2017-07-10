@@ -20,7 +20,7 @@ import rx.android.schedulers.AndroidSchedulers
 import java.util.concurrent.TimeUnit
 
 /**
- * Meizi fragment
+ * GankModel fragment
  */
 abstract class BasePicFragment<T> : Fragment() {
 

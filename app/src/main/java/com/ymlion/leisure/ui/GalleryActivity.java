@@ -26,7 +26,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.ymlion.leisure.R;
 import com.ymlion.leisure.base.BaseActivity;
-import com.ymlion.leisure.data.model.Meizi;
+import com.ymlion.leisure.data.model.GankModel;
 
 import uk.co.senab.photoview.PhotoView;
 
@@ -50,7 +50,7 @@ public class GalleryActivity extends BaseActivity {
     @BindView(R.id.gallery_vp)
     ViewPager viewPager;
 
-    private List<Meizi> meizis;
+    private List<GankModel> meizis;
     private int startPosition = 0;
 
     private boolean mIsReturning;
@@ -125,7 +125,7 @@ public class GalleryActivity extends BaseActivity {
         return viewPager.getCurrentItem() == 0;
     }
 
-    public static void start(Activity context, ArrayList<Meizi> meizis, int position, View sharedView) {
+    public static void start(Activity context, ArrayList<GankModel> meizis, int position, View sharedView) {
         Intent starter = new Intent(context, GalleryActivity.class);
         starter.putExtra(EXTRA_STARTING_GALLERY_POSITION, position);
         starter.putParcelableArrayListExtra("mz", meizis);

@@ -76,5 +76,5 @@ repositories {
 }
 
 greendao {
-    schemaVersion 1
+    schemaVersion 10
 }

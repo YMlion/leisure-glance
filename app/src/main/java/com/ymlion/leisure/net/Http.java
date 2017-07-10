@@ -4,7 +4,7 @@ import com.ymlion.leisure.data.DbHelper;
 import com.ymlion.leisure.data.model.Coser;
 import com.ymlion.leisure.net.response.HttpException;
 import com.ymlion.leisure.net.response.HttpResult;
-import com.ymlion.leisure.data.model.Meizi;
+import com.ymlion.leisure.data.model.GankModel;
 import com.ymlion.lib.utils.RxUtil;
 
 import java.net.ConnectException;
@@ -134,12 +134,12 @@ public class Http {
      * @param page
      * @return
      */
-    public Observable<List<Meizi>> getMeizhis(int size, int page, boolean loadCache) {
-        Observable<List<Meizi>> cache = DbHelper.get()
+    public Observable<List<GankModel>> getMeizhis(int size, int page, boolean loadCache) {
+        Observable<List<GankModel>> cache = DbHelper.get()
                 .getMeizis()
                 .compose(handleError());
 
-        Observable<List<Meizi>> net = request.getMeizhis(size, page)
+        Observable<List<GankModel>> net = request.getMeizhis(size, page)
                 .compose(this.handleGankResult())
                 .doOnNext(meizis -> DbHelper.get().saveMeizis(meizis))
                 .compose(this.handleError());

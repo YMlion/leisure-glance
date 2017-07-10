@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
 import com.ymlion.leisure.module.pic.PicturesFragment
+import com.ymlion.leisure.module.video.VideosFragment
 
 /**
  * Created by YMlion on 2017/7/5.
@@ -21,12 +22,12 @@ class MainPagerAdapter(fm: FragmentManager): FragmentStatePagerAdapter(fm) {
             }
             1 -> {
                 if (fragments[1] == null) {
-                    fragments[1] = PicturesFragment.newInstance()
+                    fragments[1] = VideosFragment.newInstance()
                 }
             }
             2 -> {
                 if (fragments[2] == null) {
-                    fragments[2] = PicturesFragment.newInstance()
+                    fragments[2] = VideosFragment.newInstance()
                 }
             }
         }

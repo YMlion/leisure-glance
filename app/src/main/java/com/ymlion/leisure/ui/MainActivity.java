@@ -19,9 +19,9 @@ import android.view.ViewTreeObserver;
 import com.bumptech.glide.Glide;
 import com.ymlion.leisure.R;
 import com.ymlion.leisure.base.BaseActivity;
+import com.ymlion.leisure.data.model.GankModel;
 import com.ymlion.leisure.net.Http;
 import com.ymlion.leisure.ui.adapter.FuliAdapter;
-import com.ymlion.leisure.data.model.Meizi;
 import com.ymlion.leisure.util.SubscriberAdapter;
 import com.ymlion.leisure.view.DividerItemDecoration;
 import com.ymlion.lib.base.RvBaseAdapter;
@@ -51,8 +51,8 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
     @BindView(R.id.fuli_srl)
     SwipeRefreshLayout refreshLayout;
 
-    private List<Meizi> meizis;
-    private RvBaseAdapter<Meizi> adapter;
+    private List<GankModel> meizis;
+    private RvBaseAdapter<GankModel> adapter;
     private int pageIndex = 1;
 
     private Bundle mTmpReenterState;
@@ -109,7 +109,7 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
         getMeizis(true);
         adapter = new FuliAdapter(meizis, R.layout.item_fuli);
         adapter.setOnItemClickListener((view, position) -> GalleryActivity.start(MainActivity.this,
-                (ArrayList<Meizi>) meizis, position, view.findViewById(R.id.fuli_iv)));
+                (ArrayList<GankModel>) meizis, position, view.findViewById(R.id.fuli_iv)));
         fuliRv.setAdapter(adapter);
     }
 
@@ -134,9 +134,9 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
      */
     private void getMeizis(boolean loadCache) {
         Http.build().getMeizhis(PAGE_SIZE, pageIndex, loadCache)
-                .subscribe(new SubscriberAdapter<List<Meizi>>(true) {
+                .subscribe(new SubscriberAdapter<List<GankModel>>(true) {
                     @Override
-                    public void onNext(List<Meizi> meiziList) {
+                    public void onNext(List<GankModel> meiziList) {
                         super.onNext(meizis);
                         updateList(meiziList);
                         if (refreshLayout.isRefreshing()) {
@@ -154,13 +154,13 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
                 });
     }
 
-    private void updateList(List<Meizi> meiziList) {
+    private void updateList(List<GankModel> meiziList) {
         if (pageIndex <= 1) {
             if (meizis.isEmpty()) {
                 meizis.addAll(meiziList);
                 adapter.notifyDataSetChanged();
             } else {
-                DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new DiffCallback<Meizi>(meiziList, meizis), true);
+                DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new DiffCallback<GankModel>(meiziList, meizis), true);
                 meizis.clear();
                 meizis.addAll(meiziList);
                 diffResult.dispatchUpdatesTo(adapter);

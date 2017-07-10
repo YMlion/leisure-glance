@@ -13,7 +13,7 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.ymlion.leisure.R;
-import com.ymlion.leisure.data.model.Meizi;
+import com.ymlion.leisure.data.model.GankModel;
 import com.ymlion.lib.base.RvBaseAdapter;
 import com.ymlion.lib.base.ViewHolder;
 
@@ -25,9 +25,9 @@ import java.util.List;
  * @author ymlion
  * @date 2016/7/9
  */
-public class FuliAdapter extends RvBaseAdapter<Meizi> {
+public class FuliAdapter extends RvBaseAdapter<GankModel> {
 
-    public FuliAdapter(List<Meizi> list, int layoutRes) {
+    public FuliAdapter(List<GankModel> list, int layoutRes) {
         super(list, layoutRes);
         setHasStableIds(true);
     }
@@ -38,7 +38,7 @@ public class FuliAdapter extends RvBaseAdapter<Meizi> {
     }
 
     @Override
-    public void onBind(final ViewHolder holder, Meizi model) {
+    public void onBind(final ViewHolder holder, GankModel model) {
         final ImageView img = holder.getView(R.id.fuli_iv);
         img.setTransitionName(model.get_id());
         holder.setText(R.id.fuli_des_tv, model.getDesc());

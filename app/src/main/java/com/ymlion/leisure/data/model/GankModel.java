@@ -4,16 +4,16 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.NotNull;
+import org.greenrobot.greendao.annotation.Generated;
 
 /**
- * Meizi
+ * GankModel
  * Created by ymlion on 16/6/26.
  */
 @Entity
-public class Meizi implements Parcelable {
+public class GankModel implements Parcelable {
 
 
     /**
@@ -22,7 +22,7 @@ public class Meizi implements Parcelable {
      * desc : 6.25
      * publishedAt : 2016-06-24T12:01:16.638Z
      * source : chrome
-     * type : Meizi
+     * type : GankModel
      * url : http://ww1.sinaimg.cn/large/610dc034jw1f566a296rpj20lc0sggoj.jpg
      * used : true
      * who : 代码家
@@ -133,10 +133,10 @@ public class Meizi implements Parcelable {
         return this.used;
     }
 
-    public Meizi() {
+    public GankModel() {
     }
 
-    protected Meizi(Parcel in) {
+    protected GankModel(Parcel in) {
         this._id = in.readString();
         this.createdAt = in.readString();
         this.desc = in.readString();
@@ -148,8 +148,8 @@ public class Meizi implements Parcelable {
         this.who = in.readString();
     }
 
-    @Generated(hash = 660574406)
-    public Meizi(String _id, String createdAt, String desc, @NotNull String publishedAt,
+    @Generated(hash = 980851169)
+    public GankModel(String _id, String createdAt, String desc, @NotNull String publishedAt,
             String source, String type, String url, boolean used, String who) {
         this._id = _id;
         this.createdAt = createdAt;
@@ -162,22 +162,22 @@ public class Meizi implements Parcelable {
         this.who = who;
     }
 
-    public static final Parcelable.Creator<Meizi> CREATOR = new Parcelable.Creator<Meizi>() {
+    public static final Parcelable.Creator<GankModel> CREATOR = new Parcelable.Creator<GankModel>() {
         @Override
-        public Meizi createFromParcel(Parcel source) {
-            return new Meizi(source);
+        public GankModel createFromParcel(Parcel source) {
+            return new GankModel(source);
         }
 
         @Override
-        public Meizi[] newArray(int size) {
-            return new Meizi[size];
+        public GankModel[] newArray(int size) {
+            return new GankModel[size];
         }
     };
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof Meizi) {
-            return _id.equals(((Meizi) obj)._id);
+        if (obj instanceof GankModel) {
+            return _id.equals(((GankModel) obj)._id);
         }
         return super.equals(obj);
     }

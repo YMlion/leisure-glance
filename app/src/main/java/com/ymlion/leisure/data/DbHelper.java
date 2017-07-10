@@ -3,7 +3,7 @@ package com.ymlion.leisure.data;
 import com.ymlion.leisure.AppContext;
 import com.ymlion.leisure.data.model.Coser;
 import com.ymlion.leisure.data.model.DaoSession;
-import com.ymlion.leisure.data.model.Meizi;
+import com.ymlion.leisure.data.model.GankModel;
 
 import org.greenrobot.greendao.rx.RxDao;
 
@@ -21,12 +21,12 @@ import rx.Observable;
 public class DbHelper {
 
     private static DbHelper DB;
-    private RxDao<Meizi, String> meiziDao;
+    private RxDao<GankModel, String> gankDao;
     private RxDao<Coser, Long> coserDao;
 
     private DbHelper() {
         DaoSession daoSession = AppContext.getInstance().getDaoSession();
-        meiziDao = daoSession.getMeiziDao().rx();
+        gankDao = daoSession.getGankModelDao().rx();
         coserDao = daoSession.getCoserDao().rx();
     }
 
@@ -43,9 +43,10 @@ public class DbHelper {
      *
      * @return list
      */
-    public Observable<List<Meizi>> getMeizis() {
-        return meiziDao.loadAll()
+    public Observable<List<GankModel>> getMeizis() {
+        return gankDao.loadAll()
                 .flatMap(Observable::from)
+                .filter(meizi -> meizi.getType().equals("GankModel"))
                 .toSortedList((meizi, meizi2) -> meizi2.getPublishedAt().compareTo(meizi.getPublishedAt()))
                 .filter(list -> list != null && list.size() > 0);
     }
@@ -55,8 +56,8 @@ public class DbHelper {
      *
      * @param list 列表
      */
-    public void saveMeizis(List<Meizi> list) {
-        meiziDao.getDao().insertOrReplaceInTx(list);
+    public void saveMeizis(List<GankModel> list) {
+        gankDao.getDao().insertOrReplaceInTx(list);
     }
 
     /**
