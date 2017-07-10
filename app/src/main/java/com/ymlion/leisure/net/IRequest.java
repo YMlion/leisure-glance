@@ -23,5 +23,5 @@ public interface IRequest {
     Observable<HttpResult<List<Meizi>>> getMeizhis(@Path("size") int size, @Path("page") int page);
 
     @GET("http://youxin.357.com/v1/welfare/client/photos")
-    Observable<HttpResult<List<Coser>>> getCosers(@Query("count") int count, @Query("lastId") int lastId);
+    Observable<HttpResult<List<Coser>>> getCosers(@Query("count") int count, @Query("lastId") long lastId);
 }

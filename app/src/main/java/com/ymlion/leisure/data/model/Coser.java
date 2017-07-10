@@ -23,17 +23,17 @@ public class Coser implements Parcelable {
      */
 
     @Id
-    private int id;
+    private long id;
     private String title;
     private String url;
     private int width;
     private int height;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -76,7 +76,7 @@ public class Coser implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(this.id);
+        dest.writeLong(this.id);
         dest.writeString(this.title);
         dest.writeString(this.url);
         dest.writeInt(this.width);
@@ -87,15 +87,15 @@ public class Coser implements Parcelable {
     }
 
     protected Coser(Parcel in) {
-        this.id = in.readInt();
+        this.id = in.readLong();
         this.title = in.readString();
         this.url = in.readString();
         this.width = in.readInt();
         this.height = in.readInt();
     }
 
-    @Generated(hash = 1718369744)
-    public Coser(int id, String title, String url, int width, int height) {
+    @Generated(hash = 1449897741)
+    public Coser(long id, String title, String url, int width, int height) {
         this.id = id;
         this.title = title;
         this.url = url;

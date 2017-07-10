@@ -157,7 +157,7 @@ public class Http {
      * @param lastId
      * @return
      */
-    public Observable<List<Coser>> getCosers(int count, int lastId, boolean loadCache) {
+    public Observable<List<Coser>> getCosers(int count, long lastId, boolean loadCache) {
         Observable<List<Coser>> cache = DbHelper.get()
                 .getCosers()
                 .compose(handleError());

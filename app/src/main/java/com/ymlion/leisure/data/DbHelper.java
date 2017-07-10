@@ -22,7 +22,7 @@ public class DbHelper {
 
     private static DbHelper DB;
     private RxDao<Meizi, String> meiziDao;
-    private RxDao<Coser, Integer> coserDao;
+    private RxDao<Coser, Long> coserDao;
 
     private DbHelper() {
         DaoSession daoSession = AppContext.getInstance().getDaoSession();
@@ -67,7 +67,7 @@ public class DbHelper {
     public Observable<List<Coser>> getCosers() {
         return coserDao.loadAll()
                 .flatMap(Observable::from)
-                .toSortedList((coser, coser2) -> coser.getId() - coser2.getId())
+                .toSortedList((preCoser, nextCoser) -> Long.compare(preCoser.getId(), nextCoser.getId()))
                 .filter(list -> list != null && list.size() > 0);
     }
 

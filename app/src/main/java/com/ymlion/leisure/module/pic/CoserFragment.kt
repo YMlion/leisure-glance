@@ -17,7 +17,7 @@ class CoserFragment : BasePicFragment<Coser>() {
     }
 
     override fun getDatas(loadCache: Boolean) {
-        var lastId: Int = 0
+        var lastId: Long = 0
         if (pageIndex > 1) {
             lastId = datas?.get(datas!!.lastIndex)!!.id
         }
