@@ -3,6 +3,7 @@ package com.ymlion.leisure.net;
 import android.util.ArrayMap;
 
 import com.ymlion.leisure.data.model.Coser;
+import com.ymlion.leisure.data.model.CoserSet;
 import com.ymlion.leisure.data.model.YVideo;
 import com.ymlion.leisure.net.response.HttpResult;
 import com.ymlion.leisure.data.model.GankModel;
@@ -30,6 +31,9 @@ public interface IRequest {
 
     @GET("http://youxin.357.com/v1/welfare/client/photos")
     Observable<HttpResult<List<Coser>>> getCosers(@Query("count") int count, @Query("lastId") long lastId);
+
+    @GET("http://youxin.357.com/v1/welfare/photo")
+    Observable<HttpResult<CoserSet>> getCoserPhoto(@Query("id") long id);
 
     @GET("http://youxin.357.com/v2/youxin/videos")
     Observable<HttpResult<ArrayMap<String, List<YVideo>>>> getYVideos(@Query("count") int count, @Query("hasTag") int hasTag,

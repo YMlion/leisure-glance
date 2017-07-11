@@ -2,6 +2,7 @@ package com.ymlion.leisure.net;
 
 import com.ymlion.leisure.data.DbHelper;
 import com.ymlion.leisure.data.model.Coser;
+import com.ymlion.leisure.data.model.CoserSet;
 import com.ymlion.leisure.data.model.GankModel;
 import com.ymlion.leisure.data.model.YVideo;
 import com.ymlion.leisure.net.response.HttpException;
@@ -152,6 +153,18 @@ public class Http {
         if (loadCache) {
             return Observable.concat(cache, net);
         }
+        return net;
+    }
+
+    /**
+     * get cos photos from yx
+     */
+    public Observable<List<Coser>> getCoserPhotos(long id) {
+        Observable<List<Coser>> net = request.getCoserPhoto(id)
+                .compose(handleYXResult())
+                .map(CoserSet::getPics)
+                .compose(handleError());
+
         return net;
     }
 

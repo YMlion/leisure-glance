@@ -6,6 +6,8 @@ import com.ymlion.leisure.module.main.BaseCardFragment
 import com.ymlion.leisure.module.pic.adapter.CoserAdapter
 import com.ymlion.leisure.net.Http
 import com.ymlion.leisure.util.SubscriberAdapter
+import rx.Observable
+import java.util.*
 
 /**
  * cosplay pictures.
@@ -15,6 +17,21 @@ class CoserFragment : BaseCardFragment<Coser>() {
     override fun initAdapter() {
         datas = mutableListOf<Coser>()
         mAdapter = CoserAdapter(datas, R.layout.item_card_pic)
+        (mAdapter as CoserAdapter).setOnItemClickListener { _, position ->
+            Http.build()
+                    .getCoserPhotos(datas!![position].id)
+                    .flatMap { Observable.from(it) }
+                    .map { it.url }
+                    .toList()
+                    .subscribe(object : SubscriberAdapter<List<String>>() {
+                        override fun onNext(t: List<String>?) {
+                            super.onNext(t)
+                            if (t != null) {
+                                GalleryActivity.start(context, t as ArrayList<String>?, position)
+                            }
+                        }
+                    })
+        }
     }
 
     override fun getDatas(loadCache: Boolean) {

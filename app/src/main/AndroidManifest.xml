@@ -14,7 +14,7 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity
-                android:name=".ui.GalleryActivity"
+                android:name=".module.pic.GalleryActivity"
                 android:theme="@style/AppTheme.NoActionBar.FullScreen"/>
         <activity
                 android:name=".module.main.NewMainActivity"

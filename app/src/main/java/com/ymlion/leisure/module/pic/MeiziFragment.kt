@@ -21,6 +21,11 @@ class MeiziFragment : BaseCardFragment<GankModel>() {
     override fun initAdapter() {
         datas = mutableListOf<GankModel>()
         mAdapter = MeiziAdapter(datas, R.layout.item_card_pic)
+        (mAdapter as MeiziAdapter).setOnItemClickListener { _, position ->
+            val urls: ArrayList<String> = arrayListOf()
+            datas!!.mapTo(urls) { it.url }
+            GalleryActivity.start(context, urls, position)
+        }
     }
 
     override fun getDatas(loadCache: Boolean) {
