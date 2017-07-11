@@ -2,6 +2,7 @@ package com.ymlion.leisure.module.pic
 
 import com.ymlion.leisure.R
 import com.ymlion.leisure.data.model.GankModel
+import com.ymlion.leisure.module.main.BaseCardFragment
 import com.ymlion.leisure.module.pic.adapter.MeiziAdapter
 import com.ymlion.leisure.net.Http
 import com.ymlion.leisure.util.SubscriberAdapter
@@ -9,7 +10,7 @@ import com.ymlion.leisure.util.SubscriberAdapter
 /**
  * GankModel fragment
  */
-class MeiziFragment : BasePicFragment<GankModel>() {
+class MeiziFragment : BaseCardFragment<GankModel>() {
 
     companion object {
         fun newInstance(): MeiziFragment {

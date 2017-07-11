@@ -2,9 +2,10 @@ package com.ymlion.leisure.net;
 
 import com.ymlion.leisure.data.DbHelper;
 import com.ymlion.leisure.data.model.Coser;
+import com.ymlion.leisure.data.model.GankModel;
+import com.ymlion.leisure.data.model.YVideo;
 import com.ymlion.leisure.net.response.HttpException;
 import com.ymlion.leisure.net.response.HttpResult;
-import com.ymlion.leisure.data.model.GankModel;
 import com.ymlion.lib.utils.RxUtil;
 
 import java.net.ConnectException;
@@ -61,8 +62,6 @@ public class Http {
 
     /**
      * create a Http object
-     *
-     * @return
      */
     public static Http build() {
         if (HTTP == null) {
@@ -73,39 +72,30 @@ public class Http {
 
     /**
      * 解析返回结果
-     *
-     * @param <T>
-     * @return
      */
     private <T> Observable.Transformer<HttpResult<T>, T> handleGankResult() {
         return tObservable -> tObservable.flatMap(httpResult -> {
-                if (httpResult.error) {
-                    return Observable.error(new HttpException(HttpException.DATA_EXCEPTION, "获取数据出错"));
-                }
-                return Observable.just(httpResult.results);
-            });
+            if (httpResult.error) {
+                return Observable.error(new HttpException(HttpException.DATA_EXCEPTION, "获取数据出错"));
+            }
+            return Observable.just(httpResult.results);
+        });
     }
 
     /**
      * 解析返回结果
-     *
-     * @param <T>
-     * @return
      */
     private <T> Observable.Transformer<HttpResult<T>, T> handleYXResult() {
         return tObservable -> tObservable.flatMap(httpResult -> {
-                if (!httpResult.RetSucceed) {
-                    return Observable.error(new HttpException(HttpException.DATA_EXCEPTION, "获取数据出错"));
-                }
-                return Observable.just(httpResult.msg);
-            });
+            if (!httpResult.RetSucceed) {
+                return Observable.error(new HttpException(HttpException.DATA_EXCEPTION, "获取数据出错"));
+            }
+            return Observable.just(httpResult.msg);
+        });
     }
 
     /**
      * 异常处理
-     *
-     * @param <T>
-     * @return
      */
     private <T> Observable.Transformer<T, T> handleError() {
         return tObservable -> tObservable.compose(RxUtil.applyScheduler())
@@ -129,10 +119,6 @@ public class Http {
 
     /**
      * get images from gank.io
-     *
-     * @param size
-     * @param page
-     * @return
      */
     public Observable<List<GankModel>> getMeizhis(int size, int page, boolean loadCache) {
         Observable<List<GankModel>> cache = DbHelper.get()
@@ -152,10 +138,6 @@ public class Http {
 
     /**
      * get cos from yx
-     *
-     * @param count
-     * @param lastId
-     * @return
      */
     public Observable<List<Coser>> getCosers(int count, long lastId, boolean loadCache) {
         Observable<List<Coser>> cache = DbHelper.get()
@@ -170,6 +152,17 @@ public class Http {
         if (loadCache) {
             return Observable.concat(cache, net);
         }
+        return net;
+    }
+
+    /**
+     * 获取游信视频列表
+     */
+    public Observable<List<YVideo>> getVideos(int count, long orderKey) {
+        Observable<List<YVideo>> net = request.getYVideos(count, 0, orderKey, 7702, 0)
+                .map(result -> result.msg.get("videoList"))
+                .compose(handleError());
+
         return net;
     }
 

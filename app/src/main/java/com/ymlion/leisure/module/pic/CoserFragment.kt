@@ -2,6 +2,7 @@ package com.ymlion.leisure.module.pic
 
 import com.ymlion.leisure.R
 import com.ymlion.leisure.data.model.Coser
+import com.ymlion.leisure.module.main.BaseCardFragment
 import com.ymlion.leisure.module.pic.adapter.CoserAdapter
 import com.ymlion.leisure.net.Http
 import com.ymlion.leisure.util.SubscriberAdapter
@@ -9,7 +10,7 @@ import com.ymlion.leisure.util.SubscriberAdapter
 /**
  * cosplay pictures.
  */
-class CoserFragment : BasePicFragment<Coser>() {
+class CoserFragment : BaseCardFragment<Coser>() {
 
     override fun initAdapter() {
         datas = mutableListOf<Coser>()
@@ -19,7 +20,7 @@ class CoserFragment : BasePicFragment<Coser>() {
     override fun getDatas(loadCache: Boolean) {
         var lastId: Long = 0
         if (pageIndex > 1) {
-            lastId = datas?.get(datas!!.lastIndex)!!.id
+            lastId = datas?.last()?.id!!
         }
         Http.build()
                 .getCosers(PAGE_SIZE, lastId, loadCache)

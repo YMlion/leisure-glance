@@ -1,5 +1,7 @@
 package com.ymlion.leisure.net;
 
+import android.util.ArrayMap;
+
 import com.ymlion.leisure.data.model.Coser;
 import com.ymlion.leisure.data.model.YVideo;
 import com.ymlion.leisure.net.response.HttpResult;
@@ -30,7 +32,7 @@ public interface IRequest {
     Observable<HttpResult<List<Coser>>> getCosers(@Query("count") int count, @Query("lastId") long lastId);
 
     @GET("http://youxin.357.com/v2/youxin/videos")
-    Observable<HttpResult<List<YVideo>>> getYVideos(@Query("count") int count, @Query("hasTag") int hasTag,
-                                                    @Query("orderKey") long orderKey, @Query("gId") int gId,
-                                                    @Query("hasCarousel") int hasCarousel);
+    Observable<HttpResult<ArrayMap<String, List<YVideo>>>> getYVideos(@Query("count") int count, @Query("hasTag") int hasTag,
+                                                             @Query("orderKey") long orderKey, @Query("gId") int gId,
+                                                             @Query("hasCarousel") int hasCarousel);
 }

@@ -6,24 +6,46 @@
                                     app:cardCornerRadius="5dp"
                                     app:cardElevation="2dp"
                                     android:foreground="?attr/selectableItemBackground"
-                                    app:contentPadding="@dimen/divider_width">
+                                    app:contentPadding="3dp">
 
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-        <ImageView
-                android:id="@+id/iv_card"
+        <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="120dp">
+
+            <ImageView
+                    android:id="@+id/iv_video"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"/>
+
+            <TextView
+                    android:id="@+id/tv_video_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|bottom"
+                    android:layout_marginBottom="15dp"
+                    android:textSize="12sp"
+                    android:textColor="@android:color/white"/>
+
+            <TextView
+                    android:id="@+id/tv_video_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|bottom"
+                    android:layout_marginBottom="15dp"
+                    android:textSize="12sp"
+                    android:textColor="@android:color/white"/>
+        </FrameLayout>
 
         <TextView
-                android:id="@+id/tv_card_title"
+                android:id="@+id/tv_video_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:textSize="16sp"
+                android:textSize="12sp"
                 android:textColor="#929292"/>
     </LinearLayout>
 </android.support.v7.widget.CardView>

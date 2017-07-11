@@ -1,34 +1,46 @@
 package com.ymlion.leisure.module.video
 
-import android.os.Bundle
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import com.ymlion.leisure.R
-import com.ymlion.leisure.module.main.TabFragment
+import com.ymlion.leisure.data.model.YVideo
+import com.ymlion.leisure.module.main.BaseCardFragment
+import com.ymlion.leisure.net.Http
+import com.ymlion.leisure.util.SubscriberAdapter
 
 /**
  * A fragment representing a list of Items.
  */
-class VideosFragment : TabFragment() {
+class VideosFragment : BaseCardFragment<YVideo>() {
 
-    private var videoRv: RecyclerView? = null
-    private var adapter: VideoAdapter? = null
-
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        val view = inflater!!.inflate(R.layout.fragment_videos, container, false)
-        return view
+    override fun initAdapter() {
+        datas = mutableListOf<YVideo>()
+        mAdapter = VideoAdapter(datas, R.layout.item_video)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        val root: View? = view
-        if (root != null) {
-            videoRv = root.findViewById(R.id.rv_videos) as RecyclerView?
+    override fun getDatas(loadCache: Boolean) {
+        var orderKey = 0L
+        if (pageIndex > 1) {
+            orderKey = datas?.last()?.orderKey!!
         }
+        Http.build()
+                .getVideos(20, orderKey)
+                .subscribe(object : SubscriberAdapter<MutableList<YVideo>>() {
+                    override fun onNext(t: MutableList<YVideo>?) {
+                        super.onNext(t)
+                        if (t != null) {
+                            onLoadSuccess(t)
+                        }
+                    }
+
+                    override fun onError(e: Throwable?) {
+                        super.onError(e)
+                        onRefreshComplete()
+                    }
+                })
     }
+
+    override fun getLayoutManager(): RecyclerView.LayoutManager = GridLayoutManager(context, 2)
 
     companion object {
         fun newInstance(): VideosFragment {

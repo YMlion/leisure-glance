@@ -1,7 +1,6 @@
-package com.ymlion.leisure.module.pic
+package com.ymlion.leisure.module.main
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.LinearLayoutManager
@@ -11,8 +10,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.ymlion.leisure.R
-import com.ymlion.leisure.module.pic.adapter.CardListAdapter
 import com.ymlion.leisure.view.DividerItemDecoration
+import com.ymlion.lib.base.RvBaseAdapter
 import com.ymlion.lib.utils.DiffCallback
 import com.ymlion.lib.utils.OnRvBottomListener
 import rx.Observable
@@ -22,14 +21,14 @@ import java.util.concurrent.TimeUnit
 /**
  * GankModel fragment
  */
-abstract class BasePicFragment<T> : Fragment() {
+abstract class BaseCardFragment<T> : TabFragment() {
 
     companion object {
         val PAGE_SIZE = 10
     }
 
     private var mDataRv: RecyclerView? = null
-    protected var mAdapter: CardListAdapter<T>? = null
+    protected var mAdapter: RvBaseAdapter<T>? = null
     private var mRefreshSr: SwipeRefreshLayout? = null
     protected var datas: MutableList<T>? = null
 
@@ -67,7 +66,7 @@ abstract class BasePicFragment<T> : Fragment() {
     abstract fun initAdapter()
 
     private fun initRv() {
-        val layoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
+        val layoutManager = getLayoutManager()
         mDataRv?.layoutManager = layoutManager
         mDataRv?.addOnScrollListener(object : OnRvBottomListener() {
             override fun onBottom() {
@@ -78,6 +77,8 @@ abstract class BasePicFragment<T> : Fragment() {
         mDataRv?.addItemDecoration(DividerItemDecoration(context, R.drawable.shape_rect_divider, DividerItemDecoration.BOTH_LIST))
         mDataRv?.adapter = mAdapter
     }
+
+    open protected fun getLayoutManager():RecyclerView.LayoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
 
     abstract fun getDatas(loadCache: Boolean = true)
 
