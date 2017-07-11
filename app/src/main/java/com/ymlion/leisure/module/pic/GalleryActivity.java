@@ -14,10 +14,9 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
+import com.github.chrisbanes.photoview.PhotoView;
 import com.ymlion.leisure.R;
 import com.ymlion.leisure.base.BaseActivity;
-
-import uk.co.senab.photoview.PhotoView;
 
 import java.util.ArrayList;
 import java.util.List;

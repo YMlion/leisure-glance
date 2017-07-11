@@ -59,7 +59,7 @@ dependencies {
     implementation 'com.trello:rxlifecycle-android:1.0'
     implementation 'com.trello:rxlifecycle-components:1.0'
 
-    implementation 'com.github.chrisbanes:PhotoView:1.2.6'
+    implementation 'com.github.chrisbanes:PhotoView:2.0.0'
 
     implementation 'org.greenrobot:greendao:3.2.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'

@@ -24,11 +24,10 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
+import com.github.chrisbanes.photoview.PhotoView;
 import com.ymlion.leisure.R;
 import com.ymlion.leisure.base.BaseActivity;
 import com.ymlion.leisure.data.model.GankModel;
-
-import uk.co.senab.photoview.PhotoView;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
