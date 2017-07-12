@@ -63,12 +63,13 @@ dependencies {
 
     implementation 'org.greenrobot:greendao:3.2.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     implementation 'com.aurelhubert:ahbottomnavigation:2.0.6'/*, {
         exclude group: 'com.android.support', module: "design"
     }*/
     implementation 'com.android.support:support-v4:25.4.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation 'com.google.android.exoplayer:exoplayer:r2.4.3'
 }
 repositories {
     maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }

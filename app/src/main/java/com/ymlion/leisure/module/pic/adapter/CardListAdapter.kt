@@ -1,7 +1,6 @@
 package com.ymlion.leisure.module.pic.adapter
 
 import android.graphics.drawable.Drawable
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import com.bumptech.glide.Glide
@@ -37,7 +36,6 @@ abstract class CardListAdapter<T>(list: MutableList<T>?, layoutRes: Int) : RvBas
                         var lp = img.layoutParams
                         lp.width = width
                         lp.height = height.toInt()
-                        Log.d("CardListAdapter", "width : $width; height : $height")
                         img.layoutParams = lp
 
                         return false

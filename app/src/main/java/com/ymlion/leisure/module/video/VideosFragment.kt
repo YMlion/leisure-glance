@@ -1,5 +1,6 @@
 package com.ymlion.leisure.module.video
 
+import android.content.Intent
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import com.ymlion.leisure.R
@@ -16,6 +17,12 @@ class VideosFragment : BaseCardFragment<YVideo>() {
     override fun initAdapter() {
         datas = mutableListOf<YVideo>()
         mAdapter = VideoAdapter(datas, R.layout.item_video)
+        (mAdapter as VideoAdapter).setOnItemClickListener { _, position ->
+            val url = datas!![position].playLink
+            val intent = Intent(context, VideoPlayActivity::class.java)
+            intent.putExtra("url", url)
+            context.startActivity(intent)
+        }
     }
 
     override fun getDatas(loadCache: Boolean) {
