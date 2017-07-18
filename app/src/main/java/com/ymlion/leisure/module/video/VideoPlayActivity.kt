@@ -62,6 +62,9 @@ class VideoPlayActivity : BaseActivity() {
                 dataSourceFactory, extractorsFactory, null, null)
         // Prepare the player with the source.
         player?.prepare(videoSource)
+        mPlayerView?.postDelayed({
+            player?.playWhenReady = true
+        }, 1000L)
     }
 
     override fun onDestroy() {
