@@ -18,6 +18,7 @@ import com.github.chrisbanes.photoview.PhotoView;
 import com.ymlion.leisure.R;
 import com.ymlion.leisure.base.BaseActivity;
 
+import com.ymlion.leisure.net.image.GlideApp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -109,12 +110,10 @@ public class GalleryActivity extends BaseActivity {
             }
             container.addView(mViews[position], ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
             Log.e("TAG", "addView: " + position);
-            RequestOptions options = new RequestOptions()
-                    .format(DecodeFormat.PREFER_ARGB_8888)
-                    .diskCacheStrategy(DiskCacheStrategy.DATA);
-            Glide.with(GalleryActivity.this)
+            GlideApp.with(GalleryActivity.this)
                     .load(photos.get(position))
-                    .apply(options)
+                    .format(DecodeFormat.PREFER_ARGB_8888)
+                    .diskCacheStrategy(DiskCacheStrategy.DATA)
                     .into(mViews[position]);
 
             return mViews[position];

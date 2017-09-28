@@ -2,6 +2,7 @@ package com.ymlion.leisure.net.image;
 
 import android.content.Context;
 
+import com.bumptech.glide.Glide;
 import com.bumptech.glide.GlideBuilder;
 import com.bumptech.glide.Registry;
 import com.bumptech.glide.annotation.GlideModule;
@@ -10,6 +11,7 @@ import com.bumptech.glide.load.engine.cache.ExternalCacheDiskCacheFactory;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.module.AppGlideModule;
 
+import com.bumptech.glide.request.RequestOptions;
 import java.io.InputStream;
 import java.util.concurrent.TimeUnit;
 
@@ -25,8 +27,11 @@ import okhttp3.logging.HttpLoggingInterceptor;
 public class GankGlideModule extends AppGlideModule {
     @Override
     public void applyOptions(Context context, GlideBuilder builder) {
-        final int cacheSize100M = 104857600;
-        builder.setDiskCache(new ExternalCacheDiskCacheFactory(context, "pic_cache", cacheSize100M));
+        final int cacheSize250M = 262144000;// glide默认磁盘缓存大小为250m
+        builder.setDiskCache(new ExternalCacheDiskCacheFactory(context, "pic_cache", cacheSize250M));
+        // 默认内存缓存为两个屏幕像素字节大小w*h*4*2
+
+        // 设置默认的请求选项
     }
 
     @Override
@@ -35,7 +40,7 @@ public class GankGlideModule extends AppGlideModule {
     }
 
     @Override
-    public void registerComponents(Context context, Registry registry) {
+    public void registerComponents(Context context, Glide glide, Registry registry) {
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
         OkHttpClient client = new OkHttpClient.Builder()
