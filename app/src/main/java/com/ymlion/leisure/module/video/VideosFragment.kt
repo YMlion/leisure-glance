@@ -15,13 +15,13 @@ import com.ymlion.leisure.util.SubscriberAdapter
 class VideosFragment : BaseCardFragment<YVideo>() {
 
     override fun initAdapter() {
-        datas = mutableListOf<YVideo>()
+        datas = mutableListOf()
         mAdapter = VideoAdapter(datas, R.layout.item_video)
         (mAdapter as VideoAdapter).setOnItemClickListener { _, position ->
             val url = datas!![position].playLink
             val intent = Intent(context, VideoPlayActivity::class.java)
             intent.putExtra("url", url)
-            context.startActivity(intent)
+            context?.startActivity(intent)
         }
     }
 

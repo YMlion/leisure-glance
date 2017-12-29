@@ -11,6 +11,7 @@ import android.support.v4.view.ViewPager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TableLayout
 import com.ymlion.leisure.R
 import com.ymlion.leisure.module.main.TabFragment
 
@@ -29,11 +30,11 @@ class PicturesFragment : TabFragment() {
     private var mAdapter: PagerAdapter? = null
     private var mTabLayout: TabLayout? = null
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val root = inflater!!.inflate(R.layout.fragment_pictures, container, false)
-        mPager = root.findViewById(R.id.vp_picture) as ViewPager?
-        mTabLayout = root.findViewById(R.id.tab_picture) as TabLayout?
+        mPager = root.findViewById(R.id.vp_picture)
+        mTabLayout = root.findViewById(R.id.tab_picture)
         return root
     }
 

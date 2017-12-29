@@ -34,7 +34,7 @@ abstract class BaseCardFragment<T> : TabFragment() {
 
     protected var pageIndex = 0
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         return inflater!!.inflate(R.layout.fragment_list_common, container, false)
     }
@@ -46,8 +46,8 @@ abstract class BaseCardFragment<T> : TabFragment() {
     }
 
     private fun initView() {
-        mDataRv = view?.findViewById(R.id.rv_list_common) as RecyclerView?
-        mRefreshSr = view?.findViewById(R.id.srl_list_common) as SwipeRefreshLayout?
+        mDataRv = view?.findViewById(R.id.rv_list_common)
+        mRefreshSr = view?.findViewById(R.id.srl_list_common)
         mRefreshSr?.setOnRefreshListener {
             pageIndex = 1
             Observable.timer(500, TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread())
