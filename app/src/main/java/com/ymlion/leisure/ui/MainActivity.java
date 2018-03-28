@@ -15,7 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
-
+import butterknife.BindView;
 import com.bumptech.glide.Glide;
 import com.ymlion.leisure.R;
 import com.ymlion.leisure.base.BaseActivity;
@@ -27,13 +27,10 @@ import com.ymlion.leisure.view.DividerItemDecoration;
 import com.ymlion.lib.base.RvBaseAdapter;
 import com.ymlion.lib.utils.DiffCallback;
 import com.ymlion.lib.utils.OnRvBottomListener;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-
-import butterknife.BindView;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -91,7 +88,7 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
 
     @Override
     protected void initView() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         refreshLayout.setColorSchemeResources(R.color.colorPrimary, R.color.colorPrimaryDark);
         refreshLayout.setOnRefreshListener(this);
@@ -160,7 +157,8 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
                 meizis.addAll(meiziList);
                 adapter.notifyDataSetChanged();
             } else {
-                DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new DiffCallback<GankModel>(meiziList, meizis), true);
+                DiffUtil.DiffResult diffResult =
+                        DiffUtil.calculateDiff(new DiffCallback<>(meiziList, meizis), true);
                 meizis.clear();
                 meizis.addAll(meiziList);
                 diffResult.dispatchUpdatesTo(adapter);
