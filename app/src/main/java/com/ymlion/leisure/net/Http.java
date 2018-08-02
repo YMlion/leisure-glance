@@ -8,13 +8,11 @@ import com.ymlion.leisure.data.model.YVideo;
 import com.ymlion.leisure.net.response.HttpException;
 import com.ymlion.leisure.net.response.HttpResult;
 import com.ymlion.lib.utils.RxUtil;
-
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -174,6 +172,9 @@ public class Http {
     public Observable<List<YVideo>> getVideos(int count, long orderKey) {
         Observable<List<YVideo>> net = request.getYVideos(count, 0, orderKey, 7702, 0)
                 .map(result -> result.msg.get("videoList"))
+                .flatMap(Observable::from)
+                .flatMap(Observable::from)
+                .toList()
                 .compose(handleError());
 
         return net;
