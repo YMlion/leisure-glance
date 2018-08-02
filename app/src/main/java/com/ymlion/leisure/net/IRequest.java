@@ -20,21 +20,24 @@ import rx.Observable;
 
 public interface IRequest {
 
-    @GET("http://gank.io/api/data/休息视频/{size}/{page}")
-    Observable<HttpResult<List<GankModel>>> getRestVideos(@Path("size") int size, @Path("page") int page);
+    @GET("https://gank.io/api/data/休息视频/{size}/{page}")
+    Observable<HttpResult<List<GankModel>>> getRestVideos(@Path("size") int size,
+            @Path("page") int page);
 
-    @GET("http://gank.io/api/data/福利/{size}/{page}")
-    Observable<HttpResult<List<GankModel>>> getMeizhis(@Path("size") int size, @Path("page") int page);
+    @GET("https://gank.io/api/data/福利/{size}/{page}")
+    Observable<HttpResult<List<GankModel>>> getMeizhis(@Path("size") int size,
+            @Path("page") int page);
 
-    @GET("http://youxin.357.com/v1/welfare/client/photos")
-    Observable<HttpResult<List<Coser>>> getCosers(@Query("count") int count, @Query("lastId") long lastId);
+    @GET("https://youxin.357.com/v1/welfare/client/photos")
+    Observable<HttpResult<List<Coser>>> getCosers(@Query("count") int count,
+            @Query("lastId") long lastId);
 
-    @GET("http://youxin.357.com/v1/welfare/photo")
-    Observable<HttpResult<CoserSet>> getCoserPhoto(@Query("id") long id);
+    @GET("https://youxin.357.com/v1/welfare/photo") Observable<HttpResult<CoserSet>> getCoserPhoto(
+            @Query("id") long id);
 
-    @GET("http://youxin.357.com//v2/youxin/videos-v3")
+    @GET("https://youxin.357.com//v2/youxin/videos-v3")
     Observable<HttpResult<ArrayMap<String, List<List<YVideo>>>>> getYVideos(
             @Query("count") int count, @Query("hasTag") int hasTag,
-                                                             @Query("orderKey") long orderKey, @Query("gId") int gId,
-                                                             @Query("hasCarousel") int hasCarousel);
+            @Query("orderKey") long orderKey, @Query("gId") int gId,
+            @Query("hasCarousel") int hasCarousel);
 }
