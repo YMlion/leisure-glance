@@ -37,8 +37,7 @@ public class Http {
 
     private Http() {
         OkHttpClient okHttpClient = initClient();
-        Retrofit retrofit = new Retrofit.Builder()
-                .client(okHttpClient)
+        Retrofit retrofit = new Retrofit.Builder().client(okHttpClient)
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(BASE_URL)
@@ -56,7 +55,8 @@ public class Http {
                 .addNetworkInterceptor(chain -> {
                     Request request = chain.request().newBuilder().build();
                     return chain.proceed(request);
-                }).build();
+                })
+                .build();
     }
 
     /**
@@ -102,11 +102,14 @@ public class Http {
                     throwable.printStackTrace();
                     HttpException he;
                     if (throwable instanceof ConnectException) {
-                        he = new HttpException(throwable, HttpException.NET_EXCEPTION, "网络异常，请检查网络");
+                        he = new HttpException(throwable, HttpException.NET_EXCEPTION,
+                                "网络异常，请检查网络");
                     } else if (throwable instanceof SocketTimeoutException) {
-                        he = new HttpException(throwable, HttpException.NET_EXCEPTION, "网络异常，请检查网络");
+                        he = new HttpException(throwable, HttpException.NET_EXCEPTION,
+                                "网络异常，请检查网络");
                     } else if (throwable instanceof UnknownHostException) {
-                        he = new HttpException(throwable, HttpException.NET_EXCEPTION, "网络异常，请检查网络");
+                        he = new HttpException(throwable, HttpException.NET_EXCEPTION,
+                                "网络异常，请检查网络");
                     } else if (throwable instanceof HttpException) {
                         he = (HttpException) throwable;
                     } else {
@@ -120,9 +123,7 @@ public class Http {
      * get images from gank.io
      */
     public Observable<List<GankModel>> getMeizhis(int size, int page, boolean loadCache) {
-        Observable<List<GankModel>> cache = DbHelper.get()
-                .getMeizis()
-                .compose(handleError());
+        Observable<List<GankModel>> cache = DbHelper.get().getMeizis().compose(handleError());
 
         Observable<List<GankModel>> net = request.getMeizhis(size, page)
                 .compose(this.handleGankResult())
@@ -139,9 +140,7 @@ public class Http {
      * get cos from yx
      */
     public Observable<List<Coser>> getCosers(int count, long lastId, boolean loadCache) {
-        Observable<List<Coser>> cache = DbHelper.get()
-                .getCosers()
-                .compose(handleError());
+        Observable<List<Coser>> cache = DbHelper.get().getCosers().compose(handleError());
 
         Observable<List<Coser>> net = request.getCosers(count, lastId)
                 .compose(handleYXResult())
@@ -180,4 +179,14 @@ public class Http {
         return net;
     }
 
+    /**
+     * 获取视频地址
+     *
+     * @param id 视频id
+     */
+    public Observable<String> getVideoUrl(long id) {
+        return request.getVideoUrl(id)
+                .map(request -> request.msg.get("playLink"))
+                .compose(handleError());
+    }
 }

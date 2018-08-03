@@ -40,4 +40,7 @@ public interface IRequest {
             @Query("count") int count, @Query("hasTag") int hasTag,
             @Query("orderKey") long orderKey, @Query("gId") int gId,
             @Query("hasCarousel") int hasCarousel);
+
+    @GET("https://youxin.357.com/v2/video/link/{id}")
+    Observable<HttpResult<ArrayMap<String, String>>> getVideoUrl(@Path("id") long id);
 }

@@ -18,9 +18,8 @@ class VideosFragment : BaseCardFragment<YVideo>() {
         datas = mutableListOf()
         mAdapter = VideoAdapter(datas, R.layout.item_video)
         (mAdapter as VideoAdapter).setOnItemClickListener { _, position ->
-            val url = datas!![position].playLink
             val intent = Intent(context, VideoPlayActivity::class.java)
-            intent.putExtra("url", url)
+            intent.putExtra("id", datas!![position].id)
             context?.startActivity(intent)
         }
     }
@@ -30,21 +29,20 @@ class VideosFragment : BaseCardFragment<YVideo>() {
         if (pageIndex > 1) {
             orderKey = datas?.last()?.orderKey!!
         }
-        Http.build()
-                .getVideos(20, orderKey)
-                .subscribe(object : SubscriberAdapter<MutableList<YVideo>>() {
-                    override fun onNext(t: MutableList<YVideo>?) {
-                        super.onNext(t)
-                        if (t != null) {
-                            onLoadSuccess(t)
-                        }
-                    }
+        Http.build().getVideos(20, orderKey).subscribe(object :
+                SubscriberAdapter<MutableList<YVideo>>() {
+            override fun onNext(t: MutableList<YVideo>?) {
+                super.onNext(t)
+                if (t != null) {
+                    onLoadSuccess(t)
+                }
+            }
 
-                    override fun onError(e: Throwable?) {
-                        super.onError(e)
-                        onRefreshComplete()
-                    }
-                })
+            override fun onError(e: Throwable?) {
+                super.onError(e)
+                onRefreshComplete()
+            }
+        })
     }
 
     override fun getLayoutManager(): RecyclerView.LayoutManager = GridLayoutManager(context, 2)

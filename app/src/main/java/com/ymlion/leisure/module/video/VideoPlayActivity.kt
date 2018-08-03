@@ -14,7 +14,9 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.util.Util
 import com.ymlion.leisure.R
 import com.ymlion.leisure.base.BaseActivity
-import kotlinx.android.synthetic.main.activity_video_play.*
+import com.ymlion.leisure.net.Http
+import com.ymlion.leisure.util.SubscriberAdapter
+import kotlinx.android.synthetic.main.activity_video_play.exo_video
 
 
 class VideoPlayActivity : BaseActivity() {
@@ -40,26 +42,29 @@ class VideoPlayActivity : BaseActivity() {
         // 2. Create the player
         player = ExoPlayerFactory.newSimpleInstance(this, trackSelector)
         mPlayerView?.player = player
+        Http.build().getVideoUrl(intent.getLongExtra("id", 0)).subscribe(object :
+                SubscriberAdapter<String>() {
+            override fun onNext(t: String?) {
+                super.onNext(t)
+                if (t != null) {
+                    preparePlayer(t)
+                }
+            }
+        })
     }
 
-    override fun onResume() {
-        super.onResume()
-        preparePlayer()
-    }
-
-    private fun preparePlayer() {
-        val videoUrl = intent.getStringExtra("url")
+    private fun preparePlayer(videoUrl: String) {
         val videoUri = Uri.parse(videoUrl)
         // Measures bandwidth during playback. Can be null if not required.
         val bandwidthMeter = DefaultBandwidthMeter()
         // Produces DataSource instances through which media data is loaded.
-        val dataSourceFactory = DefaultDataSourceFactory(this,
-                Util.getUserAgent(this, "leisure"), bandwidthMeter)
+        val dataSourceFactory = DefaultDataSourceFactory(this, Util.getUserAgent(this, "leisure"),
+                bandwidthMeter)
         // Produces Extractor instances for parsing the media data.
         val extractorsFactory = DefaultExtractorsFactory()
         // This is the MediaSource representing the media to be played.
-        val videoSource = ExtractorMediaSource(videoUri,
-                dataSourceFactory, extractorsFactory, null, null)
+        val videoSource = ExtractorMediaSource(videoUri, dataSourceFactory, extractorsFactory, null,
+                null)
         // Prepare the player with the source.
         player?.prepare(videoSource)
         mPlayerView?.postDelayed({

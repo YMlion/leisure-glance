@@ -17,13 +17,11 @@ public class YVideo implements Parcelable {
      * mid : 27
      * id : 1160170
      * title : 也许他不是个好新郎 但他一定是个好队友
-     * name : 也许他不是个好新郎 但他一定是个好队友
      * time : 1499668362428
      * type : 3
      * top : 0
      * url : https://youxin.7531.com/v2/video/1160170.html
      * youxinUrl : https://youxin.7531.com/v2/video/1160170.html
-     * playLink : https://youxin.7531.com/v2/video/play/1160170
      * img : http://img.357.com/wjgame/up/lo/upload_2528bc21d920b0b2c5276e65d4007546.jpg
      * aVideo : 1
      * duration : 0′8″
@@ -44,13 +42,11 @@ public class YVideo implements Parcelable {
     @Id
     private long id;
     private String title;
-    private String name;
     private long time;
     private int type;
     private int top;
     private String url;
     private String youxinUrl;
-    private String playLink;
     private String img;
     private int aVideo;
     private String duration;
@@ -68,13 +64,11 @@ public class YVideo implements Parcelable {
         dest.writeInt(this.mid);
         dest.writeLong(this.id);
         dest.writeString(this.title);
-        dest.writeString(this.name);
         dest.writeLong(this.time);
         dest.writeInt(this.type);
         dest.writeInt(this.top);
         dest.writeString(this.url);
         dest.writeString(this.youxinUrl);
-        dest.writeString(this.playLink);
         dest.writeString(this.img);
         dest.writeInt(this.aVideo);
         dest.writeString(this.duration);
@@ -90,13 +84,11 @@ public class YVideo implements Parcelable {
         this.mid = in.readInt();
         this.id = in.readLong();
         this.title = in.readString();
-        this.name = in.readString();
         this.time = in.readLong();
         this.type = in.readInt();
         this.top = in.readInt();
         this.url = in.readString();
         this.youxinUrl = in.readString();
-        this.playLink = in.readString();
         this.img = in.readString();
         this.aVideo = in.readInt();
         this.duration = in.readString();
@@ -105,20 +97,18 @@ public class YVideo implements Parcelable {
         this.content = in.readString();
     }
 
-    @Generated(hash = 1102997115)
-    public YVideo(int mid, long id, String title, String name, long time, int type, int top, String url,
-            String youxinUrl, String playLink, String img, int aVideo, String duration,
-            String clientTags, long orderKey, String content) {
+    @Generated(hash = 1003395794)
+    public YVideo(int mid, long id, String title, long time, int type, int top, String url,
+            String youxinUrl, String img, int aVideo, String duration, String clientTags, long orderKey,
+            String content) {
         this.mid = mid;
         this.id = id;
         this.title = title;
-        this.name = name;
         this.time = time;
         this.type = type;
         this.top = top;
         this.url = url;
         this.youxinUrl = youxinUrl;
-        this.playLink = playLink;
         this.img = img;
         this.aVideo = aVideo;
         this.duration = duration;
@@ -149,14 +139,6 @@ public class YVideo implements Parcelable {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public long getTime() {
@@ -197,14 +179,6 @@ public class YVideo implements Parcelable {
 
     public void setYouxinUrl(String youxinUrl) {
         this.youxinUrl = youxinUrl;
-    }
-
-    public String getPlayLink() {
-        return playLink;
-    }
-
-    public void setPlayLink(String playLink) {
-        this.playLink = playLink;
     }
 
     public String getImg() {
