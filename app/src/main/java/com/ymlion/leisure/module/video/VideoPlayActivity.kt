@@ -77,7 +77,7 @@ class VideoPlayActivity : BaseActivity() {
         super.onDestroy()
     }
 
-    fun releasePlayer() {
+    private fun releasePlayer() {
         if (player != null) {
             player!!.release()
             player = null
