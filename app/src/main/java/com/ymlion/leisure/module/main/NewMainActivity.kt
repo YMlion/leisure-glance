@@ -13,7 +13,10 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigationViewPager
 import com.ymlion.leisure.R
 import com.ymlion.leisure.base.BaseActivity
 import com.ymlion.leisure.module.pic.PicturesFragment
-import kotlinx.android.synthetic.main.activity_new_main.*
+import com.ymlion.leisure.net.Http
+import kotlinx.android.synthetic.main.activity_new_main.bottom_navigation
+import kotlinx.android.synthetic.main.activity_new_main.view_pager
+import kotlin.concurrent.thread
 
 class NewMainActivity : BaseActivity(), MainContract.View, View.OnClickListener,
         AHBottomNavigation.OnTabSelectedListener, PicturesFragment.OnFragmentInteractionListener {

@@ -15,7 +15,7 @@ import java.util.*
 class CoserFragment : BaseCardFragment<Coser>() {
 
     override fun initAdapter() {
-        datas = mutableListOf<Coser>()
+        datas = mutableListOf()
         mAdapter = CoserAdapter(datas, R.layout.item_card_pic)
         (mAdapter as CoserAdapter).setOnItemClickListener { _, position ->
             Http.build()

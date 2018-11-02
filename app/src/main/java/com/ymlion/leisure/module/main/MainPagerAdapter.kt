@@ -27,7 +27,7 @@ class MainPagerAdapter(fm: FragmentManager): FragmentStatePagerAdapter(fm) {
             }
             2 -> {
                 if (fragments[2] == null) {
-                    fragments[2] = VideosFragment.newInstance()
+                    fragments[2] = TabFragment()
                 }
             }
         }
