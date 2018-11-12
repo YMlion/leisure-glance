@@ -15,7 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import butterknife.BindView;
+
 import com.bumptech.glide.Glide;
 import com.ymlion.leisure.R;
 import com.ymlion.leisure.base.BaseActivity;
@@ -27,13 +27,16 @@ import com.ymlion.leisure.view.DividerItemDecoration;
 import com.ymlion.lib.base.RvBaseAdapter;
 import com.ymlion.lib.utils.DiffCallback;
 import com.ymlion.lib.utils.OnRvBottomListener;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+
+import butterknife.BindView;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener {
 
@@ -65,7 +68,9 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
                     // different page in the DetailsActivity. We must update the shared element
                     // so that the correct one falls into place.
                     String newTransitionName = meizis.get(currentPosition).get_id();
-                    View newSharedElement = fuliRv.findViewHolderForAdapterPosition(currentPosition).itemView.findViewById(R.id.fuli_iv);
+                    View newSharedElement = fuliRv
+                            .findViewHolderForAdapterPosition(currentPosition).itemView
+                            .findViewById(R.id.fuli_iv);
                     if (newSharedElement != null) {
                         names.clear();
                         names.add(newTransitionName);
@@ -94,7 +99,8 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
         refreshLayout.setOnRefreshListener(this);
         initRv();
         fab.setOnClickListener(view -> {
-            Schedulers.io().createWorker().schedule(() -> Glide.get(MainActivity.this).clearDiskCache());
+            Schedulers.io().createWorker()
+                      .schedule(() -> Glide.get(MainActivity.this).clearDiskCache());
             Snackbar.make(view, "cache is cleared", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
         });
@@ -131,24 +137,24 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
      */
     private void getMeizis(boolean loadCache) {
         Http.build().getMeizhis(PAGE_SIZE, pageIndex, loadCache)
-                .subscribe(new SubscriberAdapter<List<GankModel>>(true) {
-                    @Override
-                    public void onNext(List<GankModel> meiziList) {
-                        super.onNext(meizis);
-                        updateList(meiziList);
-                        if (refreshLayout.isRefreshing()) {
-                            refreshLayout.setRefreshing(false);
-                        }
+            .subscribe(new SubscriberAdapter<List<GankModel>>(true) {
+                @Override
+                public void onNext(List<GankModel> meiziList) {
+                    super.onNext(meizis);
+                    updateList(meiziList);
+                    if (refreshLayout.isRefreshing()) {
+                        refreshLayout.setRefreshing(false);
                     }
+                }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        super.onError(e);
-                        if (refreshLayout.isRefreshing()) {
-                            refreshLayout.setRefreshing(false);
-                        }
+                @Override
+                public void onError(Throwable e) {
+                    super.onError(e);
+                    if (refreshLayout.isRefreshing()) {
+                        refreshLayout.setRefreshing(false);
                     }
-                });
+                }
+            });
     }
 
     private void updateList(List<GankModel> meiziList) {
@@ -167,17 +173,17 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
             final int num = adapter.getItemCount();
             meizis.addAll(meiziList);
             Observable.range(0, meiziList.size())
-                    .subscribe(new SubscriberAdapter<Integer>() {
-                        @Override
-                        public void onNext(Integer integer) {
-                            adapter.notifyItemInserted(num + integer);
-                        }
+                      .subscribe(new SubscriberAdapter<Integer>() {
+                          @Override
+                          public void onNext(Integer integer) {
+                              adapter.notifyItemInserted(num + integer);
+                          }
 
-                        @Override
-                        public void onCompleted() {
-                            adapter.notifyItemRangeInserted(num, adapter.getItemCount());
-                        }
-                    });
+                          @Override
+                          public void onComplete() {
+                              adapter.notifyItemRangeInserted(num, adapter.getItemCount());
+                          }
+                      });
         }
     }
 
@@ -229,7 +235,7 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
     public void onRefresh() {
         pageIndex = 1;
         Observable.timer(500, TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread())
-                .subscribe(aLong -> getMeizis(false));
+                  .subscribe(aLong -> getMeizis(false));
     }
 
     @Override
