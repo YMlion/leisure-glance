@@ -1,9 +1,9 @@
 package com.ymlion.lib.utils;
 
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action0;
-import rx.schedulers.Schedulers;
+
+import io.reactivex.ObservableTransformer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * rx util class
@@ -20,7 +20,7 @@ public class RxUtil {
      * @param <T>
      * @return
      */
-    public static <T>Observable.Transformer<T, T> applyScheduler() {
+    public static <T> ObservableTransformer<T, T> applyScheduler() {
         return tObservable -> tObservable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
@@ -30,7 +30,7 @@ public class RxUtil {
      *
      * @param action
      */
-    public static void asyncDo(Action0 action) {
+    public static void asyncDo(Runnable action) {
         Schedulers.io().createWorker().schedule(action);
     }
 }

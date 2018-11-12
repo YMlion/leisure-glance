@@ -16,7 +16,6 @@ import com.ymlion.leisure.R
 import com.ymlion.leisure.base.BaseActivity
 import com.ymlion.leisure.net.Http
 import com.ymlion.leisure.util.SubscriberAdapter
-import kotlinx.android.synthetic.main.activity_video_play.exo_video
 
 
 class VideoPlayActivity : BaseActivity() {
@@ -44,11 +43,9 @@ class VideoPlayActivity : BaseActivity() {
         mPlayerView?.player = player
         Http.build().getVideoUrl(intent.getLongExtra("id", 0)).subscribe(object :
                 SubscriberAdapter<String>() {
-            override fun onNext(t: String?) {
+            override fun onNext(t: String) {
                 super.onNext(t)
-                if (t != null) {
-                    preparePlayer(t)
-                }
+                preparePlayer(t)
             }
         })
     }

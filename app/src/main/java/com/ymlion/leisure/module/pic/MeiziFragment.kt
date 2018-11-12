@@ -32,14 +32,12 @@ class MeiziFragment : BaseCardFragment<GankModel>() {
         Http.build()
                 .getMeizhis(PAGE_SIZE, pageIndex, loadCache)
                 .subscribe(object : SubscriberAdapter<MutableList<GankModel>>() {
-                    override fun onNext(t: MutableList<GankModel>?) {
+                    override fun onNext(t: MutableList<GankModel>) {
                         super.onNext(t)
-                        if (t != null) {
-                            onLoadSuccess(t)
-                        }
+                        onLoadSuccess(t)
                     }
 
-                    override fun onError(e: Throwable?) {
+                    override fun onError(e: Throwable) {
                         super.onError(e)
                         onRefreshComplete()
                     }

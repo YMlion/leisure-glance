@@ -31,14 +31,12 @@ class VideosFragment : BaseCardFragment<YVideo>() {
         }
         Http.build().getVideos(20, orderKey).subscribe(object :
                 SubscriberAdapter<MutableList<YVideo>>() {
-            override fun onNext(t: MutableList<YVideo>?) {
+            override fun onNext(t: MutableList<YVideo>) {
                 super.onNext(t)
-                if (t != null) {
-                    onLoadSuccess(t)
-                }
+                onLoadSuccess(t)
             }
 
-            override fun onError(e: Throwable?) {
+            override fun onError(e: Throwable) {
                 super.onError(e)
                 onRefreshComplete()
             }

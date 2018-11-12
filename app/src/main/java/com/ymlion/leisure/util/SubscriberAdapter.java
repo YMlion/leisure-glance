@@ -5,7 +5,8 @@ import android.widget.Toast;
 
 import com.ymlion.leisure.AppContext;
 
-import rx.Subscriber;
+import io.reactivex.SingleObserver;
+import io.reactivex.observers.DefaultObserver;
 
 /**
  * subscriber适配器
@@ -13,7 +14,7 @@ import rx.Subscriber;
  * Created by ymlion on 16/6/30.
  */
 
-public class SubscriberAdapter<T> extends Subscriber<T> {
+public class SubscriberAdapter<T> extends DefaultObserver<T> implements SingleObserver<T> {
 
     private static final String TAG = "SubscriberAdapter";
     /** 是否显示提示 **/
@@ -27,8 +28,13 @@ public class SubscriberAdapter<T> extends Subscriber<T> {
     }
 
     @Override
-    public void onCompleted() {
-        Log.d(TAG, "onCompleted");
+    public void onComplete() {
+        Log.d(TAG, "onComplete");
+    }
+
+    @Override
+    public void onSuccess(T t) {
+        Log.d(TAG, "onSuccess");
     }
 
     @Override

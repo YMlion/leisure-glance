@@ -1,16 +1,19 @@
 package com.ymlion.leisure.net;
 
 import android.util.ArrayMap;
+
 import com.ymlion.leisure.data.model.Coser;
 import com.ymlion.leisure.data.model.CoserSet;
 import com.ymlion.leisure.data.model.GankModel;
 import com.ymlion.leisure.data.model.YVideo;
 import com.ymlion.leisure.net.response.HttpResult;
+
 import java.util.List;
+
+import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
-import rx.Observable;
 
 /**
  * retrofit interface
@@ -22,7 +25,7 @@ public interface IRequest {
 
     @GET("https://gank.io/api/data/休息视频/{size}/{page}")
     Observable<HttpResult<List<GankModel>>> getRestVideos(@Path("size") int size,
-            @Path("page") int page);
+                                                          @Path("page") int page);
 
     @GET("https://gank.io/api/data/福利/{size}/{page}")
     Observable<HttpResult<List<GankModel>>> getMeizhis(@Path("size") int size,
