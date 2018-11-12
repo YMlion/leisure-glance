@@ -14,8 +14,8 @@ import com.ymlion.leisure.view.DividerItemDecoration
 import com.ymlion.lib.base.RvBaseAdapter
 import com.ymlion.lib.utils.DiffCallback
 import com.ymlion.lib.utils.OnRvBottomListener
-import rx.Observable
-import rx.android.schedulers.AndroidSchedulers
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
 import java.util.concurrent.TimeUnit
 
 /**

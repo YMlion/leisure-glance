@@ -7,7 +7,7 @@
         android:layout_height="match_parent"
         tools:context="com.ymlion.leisure.module.video.VideoPlayActivity">
 
-    <com.google.android.exoplayer2.ui.SimpleExoPlayerView
+    <com.google.android.exoplayer2.ui.PlayerView
         android:id="@+id/exo_video"
         android:layout_width="match_parent"
         android:layout_height="214dp"

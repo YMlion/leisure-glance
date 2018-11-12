@@ -5,13 +5,13 @@ import android.support.annotation.LayoutRes;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 
-import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
+import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import butterknife.ButterKnife;
 
 /**
  * base activity
- *
+ * <p>
  * Created by ymlion on 16/7/12.
  */
 

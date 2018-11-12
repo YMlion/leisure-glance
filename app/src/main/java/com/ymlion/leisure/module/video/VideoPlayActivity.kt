@@ -8,7 +8,7 @@ import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory
 import com.google.android.exoplayer2.source.ExtractorMediaSource
 import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
-import com.google.android.exoplayer2.ui.SimpleExoPlayerView
+import com.google.android.exoplayer2.ui.PlayerView
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.util.Util
@@ -16,11 +16,12 @@ import com.ymlion.leisure.R
 import com.ymlion.leisure.base.BaseActivity
 import com.ymlion.leisure.net.Http
 import com.ymlion.leisure.util.SubscriberAdapter
+import kotlinx.android.synthetic.main.activity_video_play.*
 
 
 class VideoPlayActivity : BaseActivity() {
 
-    var mPlayerView: SimpleExoPlayerView? = null
+    var mPlayerView: PlayerView? = null
     var player: SimpleExoPlayer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
